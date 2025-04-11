@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram_i18n import I18nContext
 from aiogram_i18n.lazy.filter import LazyFilter
 
-from src.repositories import UsersRepository, TodoRepository
+from src.repositories import TodoRepository, UsersRepository
 from src.utils import logger
 
 router = Router(name=__name__)
@@ -12,7 +12,9 @@ router = Router(name=__name__)
 
 @router.message(LazyFilter("get_all_todo_button"))
 @router.message(Command("get-all_todo"))
-async def handle_get_all_todo_and_show_todo_list(message: types.Message, state: FSMContext, i18n: I18nContext, users_repo: UsersRepository, todo_repo: TodoRepository):
+async def handle_get_all_todo_and_show_todo_list(
+    message: types.Message, state: FSMContext, i18n: I18nContext, users_repo: UsersRepository, todo_repo: TodoRepository
+):
     logger.info(f"User [{message.from_user.username} | {message.from_user.id}] clicked get_all_todo_button.")
     await state.clear()
 

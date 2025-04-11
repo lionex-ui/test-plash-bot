@@ -4,28 +4,27 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
-
 from aiogram_i18n import I18nMiddleware
 from aiogram_i18n.cores import FluentRuntimeCore
 
 from src.config import bot_config, i18n_config
-from src.middlewares import UsersRepoMiddleware, TodoRepoMiddleware
-from src.utils import logger
 from src.handlers import (
-    auth_router,
-    panels_router,
     add_user_router,
+    auth_router,
+    check_domains_router,
+    create_todo_router,
+    delete_todo_router,
     delete_user_router,
     edit_user_router,
-    check_domains_router,
-    main_admin_router,
-    todo_router,
-    create_todo_router,
-    get_todo_router,
     get_all_todo_router,
+    get_todo_router,
+    main_admin_router,
+    panels_router,
+    todo_router,
     update_todo_router,
-    delete_todo_router,
 )
+from src.middlewares import TodoRepoMiddleware, UsersRepoMiddleware
+from src.utils import logger
 
 
 async def main():

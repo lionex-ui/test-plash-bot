@@ -1,11 +1,11 @@
-from aiogram import Router, types, F
+from aiogram import F, Router, types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import StatesGroup, State
+from aiogram.fsm.state import State, StatesGroup
 from aiogram_i18n import I18nContext
 from aiogram_i18n.lazy.filter import LazyFilter
 
-from src.repositories import UsersRepository, TodoRepository
+from src.repositories import TodoRepository, UsersRepository
 from src.utils import logger
 
 router = Router(name=__name__)
@@ -17,7 +17,9 @@ class GetTodoStates(StatesGroup):
 
 @router.message(LazyFilter("get_todo_button"))
 @router.message(Command("get-todo"))
-async def handle_get_todo_and_request_todo_id(message: types.Message, state: FSMContext, i18n: I18nContext, users_repo: UsersRepository):
+async def handle_get_todo_and_request_todo_id(
+    message: types.Message, state: FSMContext, i18n: I18nContext, users_repo: UsersRepository
+):
     logger.info(f"User [{message.from_user.username} | {message.from_user.id}] clicked get_todo_button.")
     await state.clear()
 
@@ -29,7 +31,9 @@ async def handle_get_todo_and_request_todo_id(message: types.Message, state: FSM
 
 
 @router.message(GetTodoStates.todo_id, F.text.isdigit())
-async def handle_todo_id_and_get_todo(message: types.Message, state: FSMContext, i18n: I18nContext, todo_repo: TodoRepository):
+async def handle_todo_id_and_get_todo(
+    message: types.Message, state: FSMContext, i18n: I18nContext, todo_repo: TodoRepository
+):
     logger.info(f"User [{message.from_user.username} | {message.from_user.id}] entered todo id.")
     await state.clear()
 

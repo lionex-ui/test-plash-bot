@@ -11,7 +11,9 @@ router = Router(name=__name__)
 
 
 @router.message(LazyFilter("todo_button"))
-async def handle_todo_button_and_show_todo_buttons(message: types.Message, state: FSMContext, i18n: I18nContext, users_repo: UsersRepository):
+async def handle_todo_button_and_show_todo_buttons(
+    message: types.Message, state: FSMContext, i18n: I18nContext, users_repo: UsersRepository
+):
     logger.info(f"User [{message.from_user.username} | {message.from_user.id}] clicked todo_button.")
     await state.clear()
 

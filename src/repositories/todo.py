@@ -1,4 +1,4 @@
-from sqlalchemy import select, update, delete, and_
+from sqlalchemy import and_, delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database.models import TodoModel
@@ -10,8 +10,7 @@ class TodoRepository:
 
     async def check_todo_id(self, user_id: int, todo_id: int) -> bool:
         result = await self.session.execute(
-            select(TodoModel)
-            .filter(and_(TodoModel.telegram_id == user_id, TodoModel.id == todo_id))
+            select(TodoModel).filter(and_(TodoModel.telegram_id == user_id, TodoModel.id == todo_id))
         )
 
         return result.scalar() is not None
