@@ -11,7 +11,7 @@ router = Router(name=__name__)
 
 
 @router.message(LazyFilter("get_all_todo_button"))
-@router.message(Command("get-all_todo"))
+@router.message(Command("get-all-todo"))
 async def handle_get_all_todo_and_show_todo_list(
     message: types.Message, state: FSMContext, i18n: I18nContext, users_repo: UsersRepository, todo_repo: TodoRepository
 ):
