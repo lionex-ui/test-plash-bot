@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    container_name: "postgres"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./deploy/postgres-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: "aiogram"
+    restart: unless-stopped
+    command: sh -c "./wait-for-it.sh db:5432 --timeout=60 -- alembic upgrade head && python main.py"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - MAIN_ADMIN_ID=${MAIN_ADMIN_ID}
+      - DATABASE_URL=${DATABASE_URL}

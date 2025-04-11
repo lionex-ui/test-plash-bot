@@ -1,0 +1,15 @@
+{
+    "users": [
+        {
+            "telegram_id": 799682148,
+            "group": "check"
+        },
+        {
+            "telegram_id": 7122789966,
+            "group": "test"
+        }
+    ],
+    "admins": [
+        799682148
+    ]
+}
